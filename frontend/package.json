@@ -9,11 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-<<<<<<< HEAD
     "@prisma/client": "^6.9.0",
-    "next": "15.3.3",
-=======
->>>>>>> ea148bd475763f7041110fcd3ccfa664f276d33a
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "next": "15.3.3"
@@ -27,13 +23,7 @@
     "tailwindcss": "^4",
     "eslint": "^9",
     "eslint-config-next": "15.3.3",
-<<<<<<< HEAD
     "prettier": "^3.5.3",
-    "prisma": "^6.9.0",
-    "tailwindcss": "^4",
-    "typescript": "^5"
-=======
-    "@eslint/eslintrc": "^3"
->>>>>>> ea148bd475763f7041110fcd3ccfa664f276d33a
+    "prisma": "^6.9.0"
   }
 }
