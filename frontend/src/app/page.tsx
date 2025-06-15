@@ -12,7 +12,7 @@ export default function Home() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await fetch('https://aviso-api-vpfsn.ondigitalocean.app/posts', {
+        const res = await fetch('https://aviso-api-vpfsn.ondigitalocean.app/', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -26,7 +26,7 @@ export default function Home() {
         }
 
         const data = await res.json()
-        console.log('Fetched posts:', data) // ✅ log to confirm
+        console.log('Fetched posts:', data) 
         setPosts(data)
       } catch (err) {
         console.error('Failed to fetch posts:', err)
