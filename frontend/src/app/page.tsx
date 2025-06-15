@@ -1,13 +1,17 @@
-import type { Post } from '../models/posts';
+import type { Post } from './models/post';
+
 
 export default async function Page() {
-  let data = await fetch('http://localhost:8000/posts');
-  let posts: Post[] = await data.json();
+  const res = await fetch('http://localhost:8000/posts')
+  const posts: Post[] = await res.json()
+
   return (
     <ul>
       {posts.map((post) => (
         <li key={post.id}>{post.title}</li>
       ))}
     </ul>
-  );
+  )
 }
+
+
