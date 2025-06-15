@@ -6,6 +6,6 @@ export interface Post {
     county: string
     desc: string
     image_url: string
-    data: string
+    date: string
   }
   
