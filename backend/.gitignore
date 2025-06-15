@@ -1,0 +1,26 @@
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Python bytecode and cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Environment files
+.env
+
+# Database files
+*.db
+*.sqlite
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+
+# Other
+*.log
+*.mo
+*.DS_Store
