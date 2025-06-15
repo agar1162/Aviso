@@ -2,10 +2,11 @@ from supabase import create_client
 from fastapi import FastAPI, UploadFile, File, HTTPException, APIRouter
 from supabase import create_client
 import io
+import os
 
-url="https://lcbhlyczbborswmwkkwg.supabase.co"
-key="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxjYmhseWN6YmJvcnN3bXdra3dnIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0OTcwNDQ0MSwiZXhwIjoyMDY1MjgwNDQxfQ.P1pxnG8czxohBcBhQ2Y5QfDfW6S-k8iwkCrNEDSx85w"
-BUCKET_NAME = "sightings"
+url= os.getenv(SUPABASE_URL)
+key=os.getenv(SUPABASE_KEY)
+BUCKET_NAME = os.getenv(SUPABASE_BUCKET)
 
 
 supabase = create_client(url, key)
