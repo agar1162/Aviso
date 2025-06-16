@@ -1,6 +1,5 @@
-from supabase import create_client
+from supabase_client import create_client
 from fastapi import FastAPI, UploadFile, File, HTTPException, APIRouter, Response, status
-from supabase import create_client
 import io
 import os
 from pathlib import Path
