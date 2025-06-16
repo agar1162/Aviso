@@ -5,9 +5,6 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 
-
-load_dotenv()
-
 url=os.getenv("SUPABASE_URL")
 key=os.getenv("SUPABASE_KEY")
 BUCKET_NAME=os.getenv("SUPABASE_BUCKET")
