@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import type { Post } from "../models/post";
 import Image from "next/image";
 import { getDeviceId } from "@/utils/device";
-
+import LineGraph from "@/app/components/graph";
 
 const api_url = process.env.NEXT_PUBLIC_API_URL;
 
@@ -33,10 +33,10 @@ const CardComponent = ({ data }: { data: Post }) => {
   const [selection, setSelection] = useState<"Deny" | "Confirm" | null>(null);
   const [denyCount, setDenyCount] = useState<number | null>(null);
   const [confirmCount, setConfirmCount] = useState<number | null>(null);
-  const [loading, setLoading] = useState(true); // NEW
+  const [loading, setLoading] = useState(true);
 
   const refreshVoteCounts = async () => {
-    setLoading(true); // start loading
+    setLoading(true);
     try {
       const res = await fetch(`${api_url}/post/${data.id}/vote_counts`);
       const counts = await res.json();
@@ -45,7 +45,7 @@ const CardComponent = ({ data }: { data: Post }) => {
     } catch (e) {
       console.error("Failed to fetch vote counts:", e);
     } finally {
-      setLoading(false); // end loading
+      setLoading(false);
     }
   };
 
@@ -76,100 +76,102 @@ const CardComponent = ({ data }: { data: Post }) => {
   };
 
   return (
-    <div className="border-2 p-5 shadow rounded hover:bg-gray-100 rounded-lg">
-      <div className="flex flex-row justify-between w-full">
-        <h2 className="text-lg font-bold">{data.title}</h2>
-        <h2 className="text-lg font-bold text-brown-500">{data.city}</h2>
+    <div className="flex flex-col p-4 lg:p-10 border-2 lg:w-[40%] w-[90%] mx-auto bg-white rounded-md shadow-md">
+      {/* Header: title, date, city */}
+      <div className="mb-4 text-xl">
+        <div className="flex justify-between items-center">
+          <h2 className="font-bold">{data.title}</h2>
+          <h2 className="font-bold text-yellow-700 text-right">{data.city}</h2>
+        </div>
+        <p className="text-gray-600 text-lg mt-1">
+          {new Date(data.date).toLocaleDateString(undefined, {
+            weekday: "short",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
+        </p>
       </div>
-      <p>{new Date(data.date).toLocaleDateString()}</p>
-      <div className="flex flex-col lg:flex-row lg:gap-10 mt-4">
-        <div
-          className="flex justify-center items-center"
-          style={{ width: 300, height: 200, flexShrink: 0, overflow: "hidden" }}
-        >
-          {data.image_url ? (
-            <Image
-              src={data.image_url.trim()}
-              alt={data.title}
-              className="rounded"
-              loading="lazy"
-              width={300}
-              height={200}
-              style={{ objectFit: "cover" }}
-            />
-          ) : (
-            <p className="text-gray-400 italic">No image available</p>
-          )}
+
+      {/* Image container */}
+      <div className="flex justify-center items-center overflow-hidden h-70 lg:h-[450px] mb-4 rounded-md bg-gray-100">
+        {data.image_url ? (
+          <Image
+            src={data.image_url.trim()}
+            alt={data.title}
+            className="rounded object-cover w-fit"
+            loading="lazy"
+            width={300}
+            height={500}
+          />
+        ) : (
+          <p className="text-gray-400 italic">No image available</p>
+        )}
+      </div>
+
+      {/* Graph + buttons container */}
+      <div className="flex flex-col justify-between flex-1 px-2 mt-5 h-60 lg:h-[300px]">
+        {/* Graph */}
+        <div className="flex-grow">
+          <LineGraph postId={data.id} />
         </div>
 
-        <div
-          className="text-sm lg:mt-0 mt-4 flex flex-col justify-between"
-          style={{
-            width: 300,
-            height: 200,
-            overflowY: "auto",
-            paddingLeft: 10,
-            paddingRight: 10,
-          }}
-        >
-          <div>{data.desc}</div>
-          <div>
-            <p className="mt-4 mb-2 font-semibold text-gray-700">
-              Have you seen them? Help the community by confirming or denying.
-            </p>
+        {/* Buttons + info */}
+        <div>
+          <p className="mt-4 mb-2 font-semibold text-gray-700 text-center text-sm lg:text-base">
+            Have you seen them? Help the community by confirming or denying.
+          </p>
 
-            {loading ? (
-              <div className="flex justify-center items-center mt-4 text-gray-500">
-                <svg
-                  className="animate-spin h-5 w-5 mr-2 text-gray-500"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  ></circle>
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-                  ></path>
-                </svg>
-                Loading votes...
-              </div>
-            ) : (
-              <div className="flex gap-4 mt-2">
-                <button
-                  className={`px-4 py-2 text-white rounded transition ${
-                    selection === "Deny"
-                      ? "bg-red-700"
-                      : "bg-red-500 hover:bg-red-700"
-                  }`}
-                  disabled={selection !== null || loading}
-                  onClick={handleDeny}
-                >
-                  Deny {denyCount}
-                </button>
-
-                <button
-                  className={`px-4 py-2 text-white rounded transition ${
-                    selection === "Confirm"
-                      ? "bg-green-700"
-                      : "bg-green-500 hover:bg-green-700"
-                  }`}
-                  disabled={selection !== null || loading}
-                  onClick={handleConfirm}
-                >
-                  Confirm {confirmCount}
-                </button>
-              </div>
-            )}
-          </div>
+          {loading ? (
+            <div className="flex justify-center items-center mt-4 text-gray-500">
+              <svg
+                className="animate-spin h-5 w-5 mr-2 text-gray-500"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                ></path>
+              </svg>
+              Loading votes...
+            </div>
+          ) : (
+            <div className="flex flex-wrap gap-4 justify-center mt-2 max-w-xs mx-auto">
+              <button
+                className={`px-4 py-2 text-white rounded transition w-full sm:w-auto ${
+                  selection === "Confirm"
+                    ? "bg-green-700"
+                    : "bg-green-500 hover:bg-green-700"
+                }`}
+                disabled={selection !== null || loading}
+                onClick={handleConfirm}
+              >
+                Spotted ({confirmCount})
+              </button>
+              <button
+                className={`px-4 py-2 text-white rounded transition w-full sm:w-auto ${
+                  selection === "Deny"
+                    ? "bg-red-700"
+                    : "bg-red-500 hover:bg-red-700"
+                }`}
+                disabled={selection !== null || loading}
+                onClick={handleDeny}
+              >
+                No Sightings ({denyCount})
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>
