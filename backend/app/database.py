@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker
 import os
 from dotenv import load_dotenv
 
-DATABASE_URL = os.getenv("SUPABASE_URL")  
+DATABASE_URL = os.getenv("SUPABASE_DB")  
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
