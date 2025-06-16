@@ -1,16 +1,17 @@
 from fastapi import FastAPI, Query, HTTPException
-from app.routes import posts, sightings
+from app.routes import posts, sightings, votes
 from fastapi.middleware.cors import CORSMiddleware
 import httpx
 
 app = FastAPI()
 app.include_router(posts.router)
-app.include_router(sightings.router, prefix="/sightings")  # ✅ add prefix
+app.include_router(sightings.router) 
+app.include_router(votes.router) 
 
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # or ["*"] to allow all origins
+    allow_origins=["*"],
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],

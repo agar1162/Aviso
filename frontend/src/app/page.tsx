@@ -6,6 +6,9 @@ import Nav from "./components/nav";
 import Image from "next/image";
 import CardComponent from "./components/card";
 
+
+const api_url = process.env.NEXT_PUBLIC_API_URL;
+
 export default function Home() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
@@ -24,7 +27,7 @@ export default function Home() {
       setLoadingCounties(true);
       try {
         const res = await fetch(
-          `http://localhost:8000/county?state=${stateInput}`
+          `${api_url}/county?state=${stateInput}`
         );
         const data = await res.json();
         setCountyOptions(data.counties || []);
@@ -59,7 +62,7 @@ export default function Home() {
     const fetchPosts = async () => {
       setLoading(true);
       try {
-        let url = `http://localhost:8000/posts?county=${county}`;
+        let url = `${api_url}/posts?county=${county}`;
         if (date) {
           url += `&date=${encodeURIComponent(date)}`;
         }
