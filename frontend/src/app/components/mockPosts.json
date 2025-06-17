@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "created_at": "2025-06-16T13:45:00+00:00",
+    "time": "13:45:00",
+    "date": "2025-06-16",
+    "title": "Missing Dog",
+    "city": "Berkeley",
+    "county": "Alameda",
+    "desc": "Small brown terrier spotted near the park.",
+    "image_url": "IMG_7869.JPG"
+  },
+  {
+    "id": 2,
+    "created_at": "2025-06-16T15:30:00+00:00",
+    "time": "15:30:00",
+    "date": "2025-06-16",
+    "title": "Suspicious Vehicle",
+    "city": "Oakland",
+    "county": "Alameda",
+    "desc": "Unfamiliar van seen circling the neighborhood.",
+    "image_url": "IMG_7869.JPG"
+  },
+  {
+    "id": 3,
+    "created_at": "2025-06-17T08:15:00+00:00",
+    "time": "08:15:00",
+    "date": "2025-06-17",
+    "title": "Lost Wallet",
+    "city": "San Francisco",
+    "county": "San Francisco",
+    "desc": "Black leather wallet dropped near BART station.",
+    "image_url": "IMG_7869.JPG"
+  },
+  {
+    "id": 4,
+    "created_at": "2025-06-17T19:05:00+00:00",
+    "time": "19:05:00",
+    "date": "2025-06-17",
+    "title": "Fireworks at Night",
+    "city": "Sonoma",
+    "county": "Contra Costa",
+    "desc": "Illegal fireworks being set off repeatedly.",
+    "image_url": "IMG_7869.JPG"
+  },
+  {
+    "id": 5,
+    "created_at": "2025-06-18T01:20:00+00:00",
+    "time": "01:20:00",
+    "date": "2025-06-18",
+    "title": "Loud Noise",
+    "city": "Santa Rosa",
+    "county": "Sonoma",
+    "desc": "Ongoing construction noise past midnight.",
+    "image_url": "IMG_7869.JPG"
+  }
+]

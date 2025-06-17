@@ -1,0 +1,39 @@
+[
+    {
+      "post_id": 1,
+      "hour": 14,
+      "confirm": 1,
+      "deny": 1
+    },
+    {
+      "post_id": 2,
+      "hour": 15,
+      "confirm": 1,
+      "deny": 0
+    },
+    {
+      "post_id": 2,
+      "hour": 16,
+      "confirm": 1,
+      "deny": 0
+    },
+    {
+      "post_id": 3,
+      "hour": 8,
+      "confirm": 1,
+      "deny": 1
+    },
+    {
+      "post_id": 4,
+      "hour": 19,
+      "confirm": 0,
+      "deny": 2
+    },
+    {
+      "post_id": 5,
+      "hour": 1,
+      "confirm": 2,
+      "deny": 0
+    }
+  ]
+  

@@ -18,11 +18,9 @@ export default function Home() {
   const [loadingCounties, setLoadingCounties] = useState(false);
   const [date, setDate] = useState<string | null>(null);
 
-  // Local states to manage selections inside overlay without affecting filters until apply
   const [tempCounty, setTempCounty] = useState<string | null>(null);
   const [tempDate, setTempDate] = useState<string | null>(null);
 
-  // Fetch counties for a given state input on Enter key
   const handleStateInputKeyDown = async (
     e: React.KeyboardEvent<HTMLInputElement>
   ) => {

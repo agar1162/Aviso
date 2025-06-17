@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import type { Post } from "../models/post";
 import Image from "next/image";
 import { getDeviceId } from "@/utils/device";
-import LineGraph from "@/app/components/graph";
+import VoteBarChart from "@/app/components/graph";
 
 const api_url = process.env.NEXT_PUBLIC_API_URL;
 
@@ -13,19 +13,23 @@ const handleVote = async (
 ) => {
   const deviceId = getDeviceId();
 
-  const res = await fetch(`${api_url}/vote`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      post_id: postId,
-      vote_type: voteType,
-      device_id: deviceId,
-    }),
-  });
+  try {
+    const res = await fetch(`${api_url}/vote`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        post_id: postId,
+        vote_type: voteType,
+        device_id: deviceId,
+      }),
+    });
 
-  const data = await res.json();
-  if (!res.ok) {
-    onError(data.detail || "Something went wrong");
+    const data = await res.json();
+    if (!res.ok) {
+      onError(data.detail || "Something went wrong");
+    }
+  } catch (error) {
+    onError("Network error, please try again.");
   }
 };
 
@@ -38,7 +42,7 @@ const CardComponent = ({ data }: { data: Post }) => {
   const refreshVoteCounts = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${api_url}/post/${data.id}/vote_counts`);
+      const res = await fetch(`${api_url}/posts/${data.id}/vote_counts`);
       const counts = await res.json();
       setConfirmCount(counts.confirm_cnt);
       setDenyCount(counts.deny_cnt);
@@ -84,7 +88,7 @@ const CardComponent = ({ data }: { data: Post }) => {
           <h2 className="font-bold text-yellow-700 text-right">{data.city}</h2>
         </div>
         <p className="text-gray-600 text-lg mt-1">
-          {new Date(data.date).toLocaleDateString(undefined, {
+          {new Date(data.created_at).toLocaleDateString(undefined, {
             weekday: "short",
             year: "numeric",
             month: "long",
@@ -113,7 +117,7 @@ const CardComponent = ({ data }: { data: Post }) => {
       <div className="flex flex-col justify-between flex-1 px-2 mt-5 h-60 lg:h-[300px]">
         {/* Graph */}
         <div className="flex-grow">
-          <LineGraph postId={data.id} />
+          <VoteBarChart postId={data.id} />
         </div>
 
         {/* Buttons + info */}
